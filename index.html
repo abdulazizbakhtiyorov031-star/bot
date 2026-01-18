@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shaxsiy Dashboard</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0f1a;
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --accent: #7cf4ff;
+      --accent-2: #a06bff;
+      --text: #e6eef7;
+      --muted: #9fb0c6;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, rgba(124, 244, 255, 0.25), transparent 45%),
+        radial-gradient(circle at 20% 40%, rgba(160, 107, 255, 0.18), transparent 50%),
+        linear-gradient(160deg, #0b0f1a 0%, #0b1223 45%, #0a1020 100%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .dashboard {
+      width: min(1100px, 100%);
+      display: grid;
+      gap: 28px;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(124, 244, 255, 0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    .time {
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .date {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .quote {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .quote span {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .links {
+      display: grid;
+      gap: 14px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: linear-gradient(120deg, rgba(124, 244, 255, 0.18), rgba(160, 107, 255, 0.12));
+      border: 1px solid rgba(124, 244, 255, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .links a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(124, 244, 255, 0.15);
+    }
+
+    .links a strong {
+      font-size: 1rem;
+    }
+
+    .links a span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      .dashboard {
+        gap: 20px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="dashboard">
+    <header>
+      <h1>Salom, yaxshi kayfiyat!</h1>
+      <p class="subtitle">Shaxsiy glassmorphism dashboard</p>
+    </header>
+
+    <section class="grid">
+      <div class="card">
+        <div class="time" id="time">00:00:00</div>
+        <div class="date" id="date">00-00-0000</div>
+      </div>
+
+      <div class="card">
+        <p class="quote" id="quote">
+          Bugun ham o'z ustingda ishlash uchun ajoyib kun.
+          <span>Motivatsiya — har kuni yangi boshlanish.</span>
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="links">
+          <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+            <strong>Google</strong>
+            <span>Qidiruv</span>
+          </a>
+          <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+            <strong>YouTube</strong>
+            <span>Video</span>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <strong>GitHub</strong>
+            <span>Kodlar</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer">Bugun siz uchun yaratilgan ilhom manbai ✨</p>
+  </main>
+
+  <script>
+    const quotes = [
+      {
+        text: "Kichik qadamlar katta o'zgarishlarga olib boradi.",
+        sub: "Har kuni 1% yaxshilanish yetarli."
+      },
+      {
+        text: "Bugun qilgan ishingiz ertangi orzularingizni quradi.",
+        sub: "Harakat – eng yaxshi motivatsiya."
+      },
+      {
+        text: "Intizom – erkinlikning boshlanishidir.",
+        sub: "O'zingizga bergan va'dalarga sodiq bo'ling."
+      },
+      {
+        text: "Yaxshi kayfiyat – samaradorlikning siri.",
+        sub: "Ijobiy energiya hamma narsani yengillashtiradi."
+      },
+      {
+        text: "Maqsadingizni eslang va bir qadam oldinga yuring.",
+        sub: "Har bir kun – yangi imkoniyat."
+      }
+    ];
+
+    const timeEl = document.getElementById("time");
+    const dateEl = document.getElementById("date");
+    const quoteEl = document.getElementById("quote");
+
+    const updateTime = () => {
+      const now = new Date();
+      timeEl.textContent = now.toLocaleTimeString("uz-UZ", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+      dateEl.textContent = now.toLocaleDateString("uz-UZ", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+    };
+
+    const showRandomQuote = () => {
+      const random = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteEl.innerHTML = `${random.text}<span>${random.sub}</span>`;
+    };
+
+    updateTime();
+    showRandomQuote();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>
