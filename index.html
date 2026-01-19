@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shaxsiy Dashboard</title>
+  <title>Shaxsiy Study Dashboard</title>
   <style>
     :root {
       color-scheme: dark;
@@ -15,6 +15,8 @@
       --text: #e6eef7;
       --muted: #9fb0c6;
       --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      --danger: #ff7a7a;
+      --success: #7bffb6;
     }
 
     * {
@@ -33,11 +35,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      padding: 40px 20px 80px;
+      transition: filter 0.2s ease;
+    }
+
+    body.dnd {
+      filter: brightness(0.85) saturate(0.8);
     }
 
     .dashboard {
-      width: min(1100px, 100%);
+      width: min(1200px, 100%);
       display: grid;
       gap: 28px;
     }
@@ -62,7 +69,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 20px;
     }
 
@@ -85,6 +92,12 @@
       pointer-events: none;
     }
 
+    .card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
     .time {
       font-size: clamp(2.6rem, 6vw, 4rem);
       font-weight: 700;
@@ -95,6 +108,7 @@
       margin-top: 8px;
       color: var(--muted);
       font-size: 1.05rem;
+      text-transform: capitalize;
     }
 
     .quote {
@@ -142,6 +156,138 @@
       font-size: 0.9rem;
     }
 
+    .stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      background: rgba(12, 16, 28, 0.75);
+      border: 1px solid rgba(124, 244, 255, 0.2);
+      border-radius: 12px;
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 0.95rem;
+    }
+
+    input[type="range"] {
+      padding: 0;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      cursor: pointer;
+      background: linear-gradient(120deg, rgba(124, 244, 255, 0.25), rgba(160, 107, 255, 0.2));
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(124, 244, 255, 0.12);
+    }
+
+    button.secondary {
+      background: transparent;
+    }
+
+    .pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(124, 244, 255, 0.25);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 10px;
+    }
+
+    .stat {
+      background: rgba(12, 16, 28, 0.6);
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid rgba(124, 244, 255, 0.12);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-top: 4px;
+    }
+
+    .todo-list,
+    .deadline-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .todo-item,
+    .deadline-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(12, 16, 28, 0.6);
+      border: 1px solid rgba(124, 244, 255, 0.12);
+    }
+
+    .badge {
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(124, 244, 255, 0.15);
+      color: var(--accent);
+    }
+
+    .badge.high {
+      color: var(--danger);
+      background: rgba(255, 122, 122, 0.15);
+    }
+
+    .badge.medium {
+      color: var(--accent-2);
+      background: rgba(160, 107, 255, 0.15);
+    }
+
+    .progress-item {
+      display: grid;
+      gap: 6px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(12, 16, 28, 0.6);
+      border: 1px solid rgba(124, 244, 255, 0.12);
+    }
+
+    .progress-item input[type="text"] {
+      border: none;
+      background: transparent;
+      padding: 0;
+      font-weight: 600;
+      color: var(--text);
+    }
+
     .footer {
       text-align: center;
       color: var(--muted);
@@ -163,7 +309,7 @@
   <main class="dashboard">
     <header>
       <h1>Salom, yaxshi kayfiyat!</h1>
-      <p class="subtitle">Shaxsiy glassmorphism dashboard</p>
+      <p class="subtitle">Study uchun shaxsiy glassmorphism dashboard</p>
     </header>
 
     <section class="grid">
@@ -173,6 +319,7 @@
       </div>
 
       <div class="card">
+        <h2>Motivatsiya</h2>
         <p class="quote" id="quote">
           Bugun ham o'z ustingda ishlash uchun ajoyib kun.
           <span>Motivatsiya — har kuni yangi boshlanish.</span>
@@ -180,6 +327,141 @@
       </div>
 
       <div class="card">
+        <h2>Pomodoro taymer</h2>
+        <div class="stack">
+          <div class="row">
+            <label for="focusMinutes">Fokus (min)</label>
+            <input type="number" id="focusMinutes" min="10" max="90" value="25" />
+            <label for="breakMinutes">Tanaffus (min)</label>
+            <input type="number" id="breakMinutes" min="3" max="30" value="5" />
+          </div>
+          <div class="time" id="pomodoroDisplay">25:00</div>
+          <div class="row">
+            <button id="startPomodoro">Boshlash</button>
+            <button id="pausePomodoro" class="secondary">Pauza</button>
+            <button id="resetPomodoro" class="secondary">Qayta</button>
+            <button id="skipPomodoro" class="secondary">Keyingi</button>
+          </div>
+          <div class="row">
+            <span class="pill" id="pomodoroMode">Fokus</span>
+            <span class="pill" id="pomodoroHint">2 ta sessiya rejalashtiring</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Study statistikasi</h2>
+        <div class="stats">
+          <div class="stat">
+            <label>Bugungi fokus</label>
+            <strong id="focusTotal">0 min</strong>
+          </div>
+          <div class="stat">
+            <label>Sessiyalar</label>
+            <strong id="sessionTotal">0</strong>
+          </div>
+          <div class="stat">
+            <label>Streak</label>
+            <strong id="streakCount">0 kun</strong>
+          </div>
+          <div class="stat">
+            <label>Break eslatma</label>
+            <strong id="breakStatus">Yo'q</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Kunlik maqsadlar</h2>
+        <div class="stack">
+          <input type="text" id="dailyGoal" placeholder="Bugungi asosiy maqsad..." />
+          <input type="text" id="goalCount" placeholder="Masalan: 3 ta vazifa" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>To-do ro'yxat</h2>
+        <div class="stack">
+          <div class="row">
+            <input type="text" id="todoText" placeholder="Vazifa yozing" />
+            <select id="todoPriority">
+              <option value="low">Past</option>
+              <option value="medium">O'rtacha</option>
+              <option value="high">Yuqori</option>
+            </select>
+            <button id="addTodo">Qo'shish</button>
+          </div>
+          <div class="todo-list" id="todoList"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Progress tracker</h2>
+        <div class="stack" id="progressList">
+          <div class="progress-item">
+            <input type="text" value="Matematika" />
+            <input type="range" min="0" max="100" value="45" />
+          </div>
+          <div class="progress-item">
+            <input type="text" value="Ingliz tili" />
+            <input type="range" min="0" max="100" value="60" />
+          </div>
+          <div class="progress-item">
+            <input type="text" value="Dasturlash" />
+            <input type="range" min="0" max="100" value="30" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Imtihon countdown</h2>
+        <div class="stack">
+          <input type="datetime-local" id="examDate" />
+          <div class="time" id="examCountdown">-- kun</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Deadline ro'yxati</h2>
+        <div class="stack">
+          <div class="row">
+            <input type="text" id="deadlineText" placeholder="Deadline nomi" />
+            <input type="date" id="deadlineDate" />
+            <button id="addDeadline">Qo'shish</button>
+          </div>
+          <div class="deadline-list" id="deadlineList"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Quick notes</h2>
+        <textarea id="quickNotes" placeholder="Tezkor yozuvlar..."></textarea>
+      </div>
+
+      <div class="card">
+        <h2>Focus muhit</h2>
+        <div class="stack">
+          <div class="row">
+            <button id="toggleDnd">Do Not Disturb</button>
+            <button id="toggleBreak">Break eslatma</button>
+          </div>
+          <div class="row">
+            <select id="soundSelect">
+              <option value="none">Ovoz yo'q</option>
+              <option value="rain">Yomg'ir</option>
+              <option value="noise">White noise</option>
+              <option value="lofi">Lo-fi</option>
+            </select>
+            <button id="toggleSound">Play / Pause</button>
+          </div>
+        </div>
+        <audio id="sound-rain" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8a1ab7a7a3.mp3?filename=rain-and-thunder-ambient-112439.mp3"></audio>
+        <audio id="sound-noise" loop src="https://cdn.pixabay.com/download/audio/2021/09/01/audio_55f87d4cfb.mp3?filename=white-noise-8113.mp3"></audio>
+        <audio id="sound-lofi" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6b351a7c7c.mp3?filename=lofi-study-112191.mp3"></audio>
+      </div>
+
+      <div class="card">
+        <h2>Sevimli saytlar</h2>
         <div class="links">
           <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
             <strong>Google</strong>
@@ -192,6 +474,14 @@
           <a href="https://github.com" target="_blank" rel="noopener noreferrer">
             <strong>GitHub</strong>
             <span>Kodlar</span>
+          </a>
+          <a href="https://quizlet.com" target="_blank" rel="noopener noreferrer">
+            <strong>Quizlet</strong>
+            <span>Flashcards</span>
+          </a>
+          <a href="https://ankiweb.net" target="_blank" rel="noopener noreferrer">
+            <strong>Anki</strong>
+            <span>Takrorlash</span>
           </a>
         </div>
       </div>
@@ -227,6 +517,22 @@
     const timeEl = document.getElementById("time");
     const dateEl = document.getElementById("date");
     const quoteEl = document.getElementById("quote");
+    const pomodoroDisplay = document.getElementById("pomodoroDisplay");
+    const pomodoroMode = document.getElementById("pomodoroMode");
+    const pomodoroHint = document.getElementById("pomodoroHint");
+    const focusTotalEl = document.getElementById("focusTotal");
+    const sessionTotalEl = document.getElementById("sessionTotal");
+    const streakCountEl = document.getElementById("streakCount");
+    const breakStatusEl = document.getElementById("breakStatus");
+    const dailyGoalEl = document.getElementById("dailyGoal");
+    const goalCountEl = document.getElementById("goalCount");
+    const todoListEl = document.getElementById("todoList");
+    const examDateEl = document.getElementById("examDate");
+    const examCountdownEl = document.getElementById("examCountdown");
+    const deadlineListEl = document.getElementById("deadlineList");
+    const quickNotesEl = document.getElementById("quickNotes");
+
+    const getTodayKey = () => new Date().toISOString().slice(0, 10);
 
     const updateTime = () => {
       const now = new Date();
@@ -248,9 +554,304 @@
       quoteEl.innerHTML = `${random.text}<span>${random.sub}</span>`;
     };
 
+    const formatTimer = (seconds) => {
+      const min = String(Math.floor(seconds / 60)).padStart(2, "0");
+      const sec = String(seconds % 60).padStart(2, "0");
+      return `${min}:${sec}`;
+    };
+
+    const stats = JSON.parse(localStorage.getItem("studyStats") || "{}");
+    const todayKey = getTodayKey();
+    if (stats.date !== todayKey) {
+      stats.date = todayKey;
+      stats.focusMinutes = 0;
+      stats.sessions = 0;
+    }
+
+    const streak = JSON.parse(localStorage.getItem("studyStreak") || "{\"count\":0,\"lastDate\":null}");
+
+    const saveStats = () => {
+      localStorage.setItem("studyStats", JSON.stringify(stats));
+      localStorage.setItem("studyStreak", JSON.stringify(streak));
+    };
+
+    const updateStatsUI = () => {
+      focusTotalEl.textContent = `${stats.focusMinutes} min`;
+      sessionTotalEl.textContent = stats.sessions;
+      streakCountEl.textContent = `${streak.count} kun`;
+    };
+
+    let pomodoroInterval;
+    let pomodoroModeState = "focus";
+    let remainingSeconds = 25 * 60;
+    let breakReminder = false;
+
+    const syncPomodoroDisplay = () => {
+      pomodoroDisplay.textContent = formatTimer(remainingSeconds);
+      pomodoroMode.textContent = pomodoroModeState === "focus" ? "Fokus" : "Break";
+    };
+
+    const completeSession = () => {
+      stats.sessions += 1;
+      stats.focusMinutes += parseInt(document.getElementById("focusMinutes").value, 10);
+      const today = getTodayKey();
+      if (streak.lastDate !== today) {
+        const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+        streak.count = streak.lastDate === yesterday ? streak.count + 1 : 1;
+        streak.lastDate = today;
+      }
+      updateStatsUI();
+      saveStats();
+    };
+
+    const switchPomodoroMode = () => {
+      if (pomodoroModeState === "focus") {
+        completeSession();
+      }
+      pomodoroModeState = pomodoroModeState === "focus" ? "break" : "focus";
+      const minutes = parseInt(document.getElementById("focusMinutes").value, 10);
+      const breakMinutes = parseInt(document.getElementById("breakMinutes").value, 10);
+      remainingSeconds = (pomodoroModeState === "focus" ? minutes : breakMinutes) * 60;
+      syncPomodoroDisplay();
+    };
+
+    document.getElementById("startPomodoro").addEventListener("click", () => {
+      if (pomodoroInterval) {
+        return;
+      }
+      pomodoroInterval = setInterval(() => {
+        if (remainingSeconds > 0) {
+          remainingSeconds -= 1;
+          syncPomodoroDisplay();
+          return;
+        }
+        switchPomodoroMode();
+      }, 1000);
+    });
+
+    document.getElementById("pausePomodoro").addEventListener("click", () => {
+      clearInterval(pomodoroInterval);
+      pomodoroInterval = null;
+    });
+
+    document.getElementById("resetPomodoro").addEventListener("click", () => {
+      clearInterval(pomodoroInterval);
+      pomodoroInterval = null;
+      const minutes = parseInt(document.getElementById("focusMinutes").value, 10);
+      pomodoroModeState = "focus";
+      remainingSeconds = minutes * 60;
+      syncPomodoroDisplay();
+    });
+
+    document.getElementById("skipPomodoro").addEventListener("click", () => {
+      switchPomodoroMode();
+    });
+
+    const updatePomodoroHint = () => {
+      const sessions = Math.max(2, Math.round(120 / parseInt(document.getElementById("focusMinutes").value, 10)));
+      pomodoroHint.textContent = `${sessions} ta sessiya rejalashtiring`;
+    };
+
+    document.getElementById("focusMinutes").addEventListener("change", () => {
+      remainingSeconds = parseInt(document.getElementById("focusMinutes").value, 10) * 60;
+      syncPomodoroDisplay();
+      updatePomodoroHint();
+    });
+
+    document.getElementById("breakMinutes").addEventListener("change", () => {
+      if (pomodoroModeState === "break") {
+        remainingSeconds = parseInt(document.getElementById("breakMinutes").value, 10) * 60;
+        syncPomodoroDisplay();
+      }
+    });
+
+    const todoItems = JSON.parse(localStorage.getItem("todoItems") || "[]");
+
+    const renderTodos = () => {
+      todoListEl.innerHTML = "";
+      todoItems.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "todo-item";
+        row.innerHTML = `
+          <div>
+            <strong>${item.text}</strong>
+            <div class="badge ${item.priority}">${item.priority}</div>
+          </div>
+          <button data-index="${index}" class="secondary">Bajarildi</button>
+        `;
+        row.querySelector("button").addEventListener("click", () => {
+          todoItems.splice(index, 1);
+          localStorage.setItem("todoItems", JSON.stringify(todoItems));
+          renderTodos();
+        });
+        todoListEl.appendChild(row);
+      });
+    };
+
+    document.getElementById("addTodo").addEventListener("click", () => {
+      const text = document.getElementById("todoText").value.trim();
+      const priority = document.getElementById("todoPriority").value;
+      if (!text) {
+        return;
+      }
+      todoItems.unshift({ text, priority });
+      document.getElementById("todoText").value = "";
+      localStorage.setItem("todoItems", JSON.stringify(todoItems));
+      renderTodos();
+    });
+
+    const saveGoals = () => {
+      localStorage.setItem("dailyGoal", dailyGoalEl.value);
+      localStorage.setItem("goalCount", goalCountEl.value);
+    };
+
+    dailyGoalEl.value = localStorage.getItem("dailyGoal") || "";
+    goalCountEl.value = localStorage.getItem("goalCount") || "";
+    dailyGoalEl.addEventListener("input", saveGoals);
+    goalCountEl.addEventListener("input", saveGoals);
+
+    const progressList = document.getElementById("progressList");
+    const saveProgress = () => {
+      const progress = [...progressList.querySelectorAll(".progress-item")].map((item) => ({
+        name: item.querySelector("input[type='text']").value,
+        value: item.querySelector("input[type='range']").value
+      }));
+      localStorage.setItem("progressItems", JSON.stringify(progress));
+    };
+
+    const savedProgress = JSON.parse(localStorage.getItem("progressItems") || "null");
+    if (savedProgress) {
+      progressList.innerHTML = "";
+      savedProgress.forEach((item) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "progress-item";
+        wrapper.innerHTML = `
+          <input type="text" value="${item.name}" />
+          <input type="range" min="0" max="100" value="${item.value}" />
+        `;
+        wrapper.querySelectorAll("input").forEach((input) => {
+          input.addEventListener("input", saveProgress);
+        });
+        progressList.appendChild(wrapper);
+      });
+    }
+
+    progressList.querySelectorAll("input").forEach((input) => {
+      input.addEventListener("input", saveProgress);
+    });
+
+    const updateExamCountdown = () => {
+      if (!examDateEl.value) {
+        examCountdownEl.textContent = "-- kun";
+        return;
+      }
+      const diff = new Date(examDateEl.value).getTime() - Date.now();
+      if (diff <= 0) {
+        examCountdownEl.textContent = "Bugun!";
+        return;
+      }
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      examCountdownEl.textContent = `${days} kun ${hours} soat ${minutes} daqiqa`;
+    };
+
+    examDateEl.value = localStorage.getItem("examDate") || "";
+    examDateEl.addEventListener("input", () => {
+      localStorage.setItem("examDate", examDateEl.value);
+      updateExamCountdown();
+    });
+
+    const deadlines = JSON.parse(localStorage.getItem("deadlines") || "[]");
+
+    const renderDeadlines = () => {
+      deadlineListEl.innerHTML = "";
+      deadlines.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "deadline-item";
+        row.innerHTML = `
+          <div>
+            <strong>${item.text}</strong>
+            <div class="pill">${item.date}</div>
+          </div>
+          <button data-index="${index}" class="secondary">Remove</button>
+        `;
+        row.querySelector("button").addEventListener("click", () => {
+          deadlines.splice(index, 1);
+          localStorage.setItem("deadlines", JSON.stringify(deadlines));
+          renderDeadlines();
+        });
+        deadlineListEl.appendChild(row);
+      });
+    };
+
+    document.getElementById("addDeadline").addEventListener("click", () => {
+      const text = document.getElementById("deadlineText").value.trim();
+      const date = document.getElementById("deadlineDate").value;
+      if (!text || !date) {
+        return;
+      }
+      deadlines.unshift({ text, date });
+      document.getElementById("deadlineText").value = "";
+      localStorage.setItem("deadlines", JSON.stringify(deadlines));
+      renderDeadlines();
+    });
+
+    quickNotesEl.value = localStorage.getItem("quickNotes") || "";
+    quickNotesEl.addEventListener("input", () => {
+      localStorage.setItem("quickNotes", quickNotesEl.value);
+    });
+
+    const breakReminderKey = "breakReminder";
+    breakReminder = localStorage.getItem(breakReminderKey) === "true";
+    breakStatusEl.textContent = breakReminder ? "Yoqqan" : "Yo'q";
+
+    document.getElementById("toggleBreak").addEventListener("click", () => {
+      breakReminder = !breakReminder;
+      breakStatusEl.textContent = breakReminder ? "Yoqqan" : "Yo'q";
+      localStorage.setItem(breakReminderKey, breakReminder);
+    });
+
+    document.getElementById("toggleDnd").addEventListener("click", () => {
+      document.body.classList.toggle("dnd");
+    });
+
+    const sounds = {
+      rain: document.getElementById("sound-rain"),
+      noise: document.getElementById("sound-noise"),
+      lofi: document.getElementById("sound-lofi")
+    };
+    let currentSound = null;
+
+    document.getElementById("soundSelect").addEventListener("change", (event) => {
+      if (currentSound) {
+        currentSound.pause();
+      }
+      const value = event.target.value;
+      currentSound = sounds[value] || null;
+    });
+
+    document.getElementById("toggleSound").addEventListener("click", () => {
+      if (!currentSound) {
+        return;
+      }
+      if (currentSound.paused) {
+        currentSound.play();
+      } else {
+        currentSound.pause();
+      }
+    });
+
     updateTime();
     showRandomQuote();
+    syncPomodoroDisplay();
+    updatePomodoroHint();
+    updateStatsUI();
+    renderTodos();
+    renderDeadlines();
+    updateExamCountdown();
     setInterval(updateTime, 1000);
+    setInterval(updateExamCountdown, 60000);
   </script>
 </body>
 </html>
